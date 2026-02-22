@@ -260,7 +260,9 @@ https://your-site.netlify.app/admin    → You monitor their engagement
 
 ## Roadmap: From Tracking to Business Intelligence
 
-### Phase 1: Foundation (Current)
+> Every proposal you send feeds a growing intelligence layer. Behavioral data from prospects is crossed with the actual content they engaged with, enriched by your knowledge base, and processed by AI agents to produce actionable business development recommendations — compounding your closing odds with every deal.
+
+### Phase 1: Behavioral Capture (Current)
 > **Status: Complete**
 
 - [x] Real-time event capture (mouse, clicks, scroll, sections, hovers, visibility)
@@ -270,118 +272,197 @@ https://your-site.netlify.app/admin    → You monitor their engagement
 - [x] Session management and live indicators
 - [x] Canvas 2D visualizations (no external chart libs)
 
----
-
-### Phase 2: Multi-Proposal Analytics
-> **Goal: Compare engagement across multiple prospects and proposals**
-
-- [ ] **Proposal Registry** — Dashboard to manage multiple proposal deployments from one admin panel
-- [ ] **Cross-Proposal Metrics** — Compare avg. time, scroll depth, click density across different prospects
-- [ ] **Engagement Score** — Weighted composite score (0-100) based on:
-  - Time spent (30%)
-  - Scroll depth (20%)
-  - Section coverage (20%)
-  - Return visits (15%)
-  - Interaction density (15%)
-- [ ] **Prospect Leaderboard** — Rank all active prospects by engagement score
-- [ ] **Funnel View** — Visualize how many prospects reach each section of your proposal
+**Data layer established.** Every future phase builds on this foundation.
 
 ---
 
-### Phase 3: Predictive Intelligence
-> **Goal: Use historical data to predict close probability**
+### Phase 2: Content-Behavior Correlation Engine
+> **Goal: Cross behavioral signals with the actual proposal content to understand *what* resonates, not just *where* they looked**
 
-- [ ] **Close Probability Model** — Train on historical engagement data + deal outcomes:
+- [ ] **Section Content Mapping** — Tag each proposal section with metadata (topic: `pricing`, `technical`, `timeline`, `risk`, `team`, `case-study`) so behavioral data is semantically meaningful
+- [ ] **Content Engagement Matrix** — Cross time-per-section with content type:
   ```
-  Input:  { avgTimeOnSite, scrollDepth, returnVisits, sectionCoverage, hoverDensity }
-  Output: { closeProbability: 0.73, confidence: "high" }
+  ┌─────────────────┬──────────┬──────────┬────────────┐
+  │ Content Type     │ Avg Time │ Re-reads │ Conversion │
+  ├─────────────────┼──────────┼──────────┼────────────┤
+  │ AI Capabilities  │ 4m 12s   │ 2.3x     │ 72%        │
+  │ Pricing/ROI      │ 2m 45s   │ 1.8x     │ 65%        │
+  │ Technical Arch   │ 3m 30s   │ 1.1x     │ 58%        │
+  │ Timeline         │ 1m 05s   │ 0.4x     │ —          │
+  │ Risk Mitigation  │ 0m 42s   │ 0.2x     │ —          │
+  └─────────────────┴──────────┴──────────┴────────────┘
   ```
-- [ ] **Engagement Decay Curve** — Detect when prospect interest is fading (decreasing session lengths, longer gaps between visits)
-- [ ] **Optimal Follow-Up Timing** — Analyze when prospects are most active to recommend the best time to call
-- [ ] **Section Impact Analysis** — Correlate which sections high-converters spend time on vs. lost deals
-- [ ] **Anomaly Detection** — Alert when a prospect shows unusual behavior (e.g., sudden deep engagement after weeks of silence = competitor comparison)
+- [ ] **Engagement Score** — Weighted composite score (0-100):
+  - Active time spent (30%) + Scroll depth (20%) + Section coverage (20%) + Return visits (15%) + Interaction density (15%)
+- [ ] **Multi-Proposal Registry** — Manage all active proposals from one admin panel, compare engagement across prospects
+- [ ] **Prospect Leaderboard** — Rank pipeline by engagement score, surface deals most likely to close
 
 ---
 
-### Phase 4: CRM & Workflow Integration
-> **Goal: Turn insights into automated actions**
+### Phase 3: Knowledge Base & RAG Layer
+> **Goal: Build a retrieval-augmented knowledge base from all past proposals, deal outcomes, and engagement data**
 
-- [ ] **HubSpot / Salesforce Sync** — Push engagement scores and events to CRM contact records
+- [ ] **Proposal Knowledge Store** — Index all past proposals into a vector database (ChromaDB / Pinecone):
+  - Section content, structure, ordering, visuals used
+  - Engagement data per section per prospect
+  - Deal outcome (won/lost/stalled) linked to each proposal
+- [ ] **Engagement Pattern Library** — Store and retrieve behavioral archetypes:
+  ```
+  PATTERN: "The Deep Diver"
+  BEHAVIOR: 8+ min session, >90% scroll, heavy hover on technical sections
+  HISTORICAL OUTCOME: 68% close rate
+  RECOMMENDED ACTION: Send technical deep-dive follow-up within 24h
+
+  PATTERN: "The Scanner"
+  BEHAVIOR: <2 min session, <40% scroll, jumps directly to pricing
+  HISTORICAL OUTCOME: 12% close rate
+  RECOMMENDED ACTION: Reframe value prop, lead with ROI in follow-up
+  ```
+- [ ] **Industry & Company Enrichment** — Cross prospect identity with external data:
+  - Company size, sector, tech stack, recent funding, hiring signals
+  - Enrich from LinkedIn, Crunchbase, or CRM records
+  - Feed into proposal personalization and agent reasoning
+- [ ] **Win/Loss Knowledge Graph** — Map relationships between proposal attributes, engagement patterns, and outcomes:
+  - Which content types convert in which industries
+  - Which objections appear in lost deals (inferred from skipped sections)
+  - Which proposal lengths and structures perform best by company size
+
+---
+
+### Phase 4: AI Agent System
+> **Goal: Deploy specialized agents that consume behavioral data + knowledge base to produce business development recommendations**
+
+- [ ] **Agent 1: Engagement Analyst** — Processes raw tracking data into structured insights
+  - Classifies prospect into behavioral archetype (Deep Diver, Scanner, Returner, Sharer, etc.)
+  - Detects engagement decay or acceleration curves
+  - Flags anomalies (sudden re-engagement, new device = shared internally, late-night viewing = personal interest)
+  ```
+  INPUT:  Raw Firebase session data
+  OUTPUT: { archetype, engagementScore, trend, anomalies[], topSections[], skippedSections[] }
+  ```
+
+- [ ] **Agent 2: Content Strategist (RAG-powered)** — Retrieves similar past proposals from the knowledge base and recommends what to emphasize
+  - Queries: "What content converted prospects with similar engagement patterns?"
+  - Retrieves winning proposal structures from the vector store
+  - Recommends which sections to expand, reorder, or cut for the follow-up
+  ```
+  INPUT:  Engagement analysis + prospect profile + knowledge base
+  OUTPUT: { contentRecommendations[], sectionPriority[], talkingPoints[] }
+  ```
+
+- [ ] **Agent 3: Deal Advisor** — Synthesizes everything into a closing strategy
+  - Predicts close probability based on engagement data crossed with historical outcomes
+  - Recommends optimal follow-up timing, channel (call/email/meeting), and approach
+  - Generates a pre-meeting brief with prospect-specific talking points
+  - Surfaces objection risks based on skipped/low-engagement sections
+  ```
+  INPUT:  Engagement analysis + content strategy + CRM context + knowledge base
+  OUTPUT: {
+    closeProbability: 0.73,
+    recommendedAction: "Schedule technical demo within 48h",
+    talkingPoints: ["Emphasize AI pipeline — 4m 12s engagement", "Address pricing — they revisited 3x"],
+    objectionRisks: ["Timeline concerns — skipped after 8s", "Team size — never viewed"],
+    optimalTiming: "Tuesday 10am (their peak activity window)"
+  }
+  ```
+
+- [ ] **Agent 4: Proposal Architect (RAG-powered)** — Generates new proposals informed by what historically converts
+  - Retrieves top-performing section structures from past wins
+  - Adapts content ordering based on prospect industry and role
+  - Auto-generates first drafts with sections weighted by predicted engagement
+  - Learns from every new deal outcome to refine recommendations
+
+- [ ] **Agent Orchestrator** — Chains all agents in sequence, triggered automatically:
+  - On new session → Agent 1 runs → triggers Agent 2 → feeds Agent 3
+  - On deal outcome logged → updates knowledge base → improves all agents
+
+---
+
+### Phase 5: CRM Integration & Automated Workflows
+> **Goal: Push intelligence into your existing sales tools and automate the follow-up cycle**
+
+- [ ] **HubSpot / Salesforce Sync** — Push engagement scores, behavioral archetypes, and agent recommendations to CRM contact records
 - [ ] **Automated Follow-Up Triggers**:
-  - Prospect views proposal 3+ times → Auto-create follow-up task
-  - Engagement score > 70 → Notify sales team on Slack
-  - Prospect shares with new device → Flag "internal review stage"
-- [ ] **Email Sequences** — Trigger personalized emails based on which sections they focused on:
-  - Heavy time on AI Pipeline → Send AI capabilities case study
-  - Skipped pricing → Send ROI calculator
-  - Deep-read everything → Send contract/next-steps
-- [ ] **Meeting Prep Briefs** — Auto-generate a one-pager before your follow-up call:
+  - Engagement score > 70 → Notify sales team on Slack with agent-generated brief
+  - Prospect returns 3+ times → Auto-create follow-up task with recommended approach
+  - New device detected → Flag "internal review stage" in CRM
+  - Engagement decay detected → Trigger re-engagement email sequence
+- [ ] **Smart Email Sequences** — AI-drafted follow-ups based on what they engaged with:
+  - Heavy time on AI capabilities → Send technical case study
+  - Revisited pricing 3x → Send ROI calculator with competitive comparison
+  - Deep-read everything → Send contract / next-steps / scheduling link
+  - Skipped risk section → Proactively address risk in follow-up (don't wait for objection)
+- [ ] **Meeting Prep Briefs** — Auto-generated before every follow-up:
   ```
-  PROSPECT: Acme Corp (CEO: John)
-  ENGAGEMENT SCORE: 82/100 (High)
-  SESSIONS: 4 visits over 3 days
-  TOP SECTIONS: AI Pipeline (4m 12s), Features (3m 45s)
-  SKIPPED: Risks, File Matrix
-  INSIGHT: Prospect is technically focused. Emphasize AI capabilities.
-  RECOMMENDED APPROACH: Technical deep-dive, skip risk mitigation talk.
+  ┌─────────────────────────────────────────────────────────┐
+  │  DEAL INTELLIGENCE BRIEF — Acme Corp                    │
+  ├─────────────────────────────────────────────────────────┤
+  │  PROSPECT:        John Smith, CEO                       │
+  │  ENGAGEMENT:      82/100 (High) — "Deep Diver"          │
+  │  SESSIONS:        4 visits over 3 days                  │
+  │  CLOSE PROBABILITY: 73%                                 │
+  │                                                         │
+  │  TOP SECTIONS:    AI Pipeline (4m 12s), Features (3m 45s)│
+  │  REVISITED:       Pricing (3x), Team section (2x)       │
+  │  SKIPPED:         Risk Mitigation, File Matrix          │
+  │                                                         │
+  │  SIMILAR WINS:    Beta Corp (closed $120K, same pattern) │
+  │  SIMILAR LOSSES:  Gamma Inc (stalled at pricing stage)  │
+  │                                                         │
+  │  RECOMMENDED APPROACH:                                  │
+  │  → Lead with technical demo (AI pipeline focus)         │
+  │  → Address pricing proactively — they're comparing      │
+  │  → Skip risk section — low concern signal               │
+  │  → Bring CTO to call — technical depth matters to them  │
+  │                                                         │
+  │  OPTIMAL TIMING:  Tuesday 10am (peak activity window)   │
+  └─────────────────────────────────────────────────────────┘
   ```
 
 ---
 
-### Phase 5: A/B Testing & Optimization
-> **Goal: Continuously improve proposal effectiveness**
+### Phase 6: Continuous Optimization & Revenue Intelligence
+> **Goal: Every proposal makes the next one better. Every deal outcome sharpens the model.**
 
-- [ ] **Section Reordering** — Test different section orders and measure which flow retains attention longer
-- [ ] **Content Variants** — A/B test different headlines, visuals, or data presentations
-- [ ] **Layout Experiments** — Compare single-page scroll vs. multi-page navigation
-- [ ] **Personalization Engine** — Dynamically adjust proposal content based on prospect industry/role:
-  - CEO → Lead with ROI and business impact
-  - CTO → Lead with architecture and tech stack
-  - CFO → Lead with cost savings and timeline
-- [ ] **Conversion Benchmarks** — Establish baseline metrics and track improvement over time:
+- [ ] **A/B Testing Engine** — Test section order, content variants, and layouts. Measure which version drives higher engagement and close rate
+- [ ] **Personalization Engine** — Dynamically adjust proposal content at load time based on prospect profile:
+  - CEO → Lead with ROI, business impact, strategic vision
+  - CTO → Lead with architecture, tech stack, integration depth
+  - CFO → Lead with cost savings, timeline efficiency, risk mitigation
+- [ ] **Competitive Intelligence Detection** — Behavioral patterns that signal competitor evaluation:
+  - Short scanning sessions = comparing alternatives
+  - Focus on differentiators = evaluating unique value
+  - Multiple stakeholders in quick succession = formal evaluation committee
+- [ ] **Revenue Forecasting** — Predict quarterly revenue from pipeline engagement data:
   ```
-  Avg. Engagement Score:  45 → 68 (+51%)
-  Avg. Time on Proposal:  2m 30s → 6m 15s (+150%)
-  Close Rate:             18% → 34% (+89%)
+  Pipeline:    12 active proposals
+  High intent: 5 prospects (engagement > 70)
+  Predicted:   $340K weighted revenue (next 30 days)
+  At risk:     2 deals showing engagement decay — trigger re-engagement
   ```
-
----
-
-### Phase 6: AI-Powered Deal Intelligence
-> **Goal: AI copilot for proposal strategy**
-
-- [ ] **Natural Language Insights** — Ask questions about your prospects:
-  ```
-  "Which prospects showed the most engagement this week?"
-  "What sections should I emphasize for enterprise clients?"
-  "Compare engagement between Acme Corp and Beta Inc proposals"
-  ```
-- [ ] **Proposal Generation** — AI drafts new proposals based on what historically converts:
-  - Analyze top-performing proposal structures
-  - Auto-suggest section ordering
-  - Generate content tailored to prospect profile
-- [ ] **Competitive Intelligence** — Detect patterns that indicate competitor comparison:
-  - Short, scanning sessions = comparing alternatives
-  - Focus on differentiators = evaluating your unique value
-  - Multiple stakeholders = formal evaluation process
-- [ ] **Revenue Forecasting** — Predict quarterly revenue based on pipeline engagement data
+- [ ] **Closing Feedback Loop** — Log every deal outcome (won/lost/amount/reason) back into the knowledge base. The system learns:
+  - Which behavioral patterns predict wins vs. losses
+  - Which content types drive conversion by industry
+  - Which follow-up timing and approaches close fastest
+  - **Every deal you run through this system increases the intelligence available to the next one**
 
 ---
 
 ## Key Metrics & KPIs
 
-Once you accumulate data across multiple proposals, track these metrics:
-
 | Metric | Formula | Target |
 |---|---|---|
-| **Engagement Score** | Weighted composite of all signals | > 65/100 |
+| **Engagement Score** | Weighted composite of all behavioral signals | > 65/100 |
 | **Proposal View Rate** | Sessions / Links Sent | > 80% |
 | **Deep Read Rate** | Sessions with >80% scroll / Total Sessions | > 40% |
 | **Return Rate** | Prospects with 2+ sessions / Total Prospects | > 30% |
 | **Time to First View** | Time between sending link and first session | < 24 hours |
 | **Attention Span** | Average active time per session | > 4 minutes |
 | **Section Completion** | % of sections viewed per session | > 70% |
-| **Engagement-to-Close** | Close rate for high-engagement prospects | Track & improve |
+| **Content-to-Close Correlation** | Which content types drive highest close rate | Track per industry |
+| **Agent Recommendation Accuracy** | % of agent-suggested actions that led to positive outcome | > 60% |
+| **Engagement-to-Close** | Close rate for high-engagement (>70) prospects | Track & improve |
+| **Intelligence Compound Rate** | Improvement in close rate per 10 proposals processed | Positive trend |
 
 ---
 
